@@ -18,6 +18,7 @@
 				<input type="password" name="password" placeholder="Password" id="password" required>
 				<input type="submit" value="Login">
 			</form>
+			<a href="../phpRegister/register.html">Register</a>
 		</div>
 	</body>
 </html>

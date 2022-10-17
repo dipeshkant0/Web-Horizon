@@ -42,22 +42,22 @@ if ($stmt = $con->prepare('SELECT id, password FROM accounts WHERE username = ?'
 	} else {
 		// Insert new account
         // Username doesnt exists, insert new account
-if ($stmt = $con->prepare('INSERT INTO accounts (username, password, email, activation_code) VALUES (?, ?, ?, ?)')) {
+		if ($stmt = $con->prepare('INSERT INTO accounts (username, password, email) VALUES (?, ?, ?)')) {
 	// We do not want to expose passwords in our database, so hash the password and use password_verify when a user logs in.
 	$password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-	$uniqid = uniqid();
-    $stmt->bind_param('ssss', $_POST['username'], $password, $_POST['email'], $uniqid);
+	// $uniqid = uniqid();
+    $stmt->bind_param('sss', $_POST['username'], $password, $_POST['email']);
 
 	$stmt->execute();
-	$from    = 'noreply@yourdomain.com';
-$subject = 'Account Activation Required';
-$headers = 'From: ' . $from . "\r\n" . 'Reply-To: ' . $from . "\r\n" . 'X-Mailer: PHP/' . phpversion() . "\r\n" . 'MIME-Version: 1.0' . "\r\n" . 'Content-Type: text/html; charset=UTF-8' . "\r\n";
-// Update the activation variable below
-$activate_link = 'http://web-horizon.com/phplogin/activate.php?email=' . $_POST['email'] . '&code=' . $uniqid;
-$message = '<p>Please click the following link to activate your account: <a href="' . $activate_link . '">' . $activate_link . '</a></p>';
-mail($_POST['email'], $subject, $message, $headers);
-echo 'Please check your email to activate your account!';
-} else {
+// 	$from    = 'noreply@yourdomain.com';
+// $subject = 'Account Activation Required';
+// $headers = 'From: ' . $from . "\r\n" . 'Reply-To: ' . $from . "\r\n" . 'X-Mailer: PHP/' . phpversion() . "\r\n" . 'MIME-Version: 1.0' . "\r\n" . 'Content-Type: text/html; charset=UTF-8' . "\r\n";
+// // Update the activation variable below
+// $activate_link = 'http://web-horizon.com/phplogin/activate.php?email=' . $_POST['email'] . '&code=' . $uniqid;
+// $message = '<p>Please click the following link to activate your account: <a href="' . $activate_link . '">' . $activate_link . '</a></p>';
+// mail($_POST['email'], $subject, $message, $headers);
+// echo 'Please check your email to activate your account!';
+// } else {
 	// Something is wrong with the sql statement, check to make sure accounts table exists with all 3 fields.
 	echo 'Could not prepare statement!';
 }
