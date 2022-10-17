@@ -61,7 +61,8 @@ if ($stmt = $con->prepare('SELECT id, password FROM accounts WHERE username = ?'
 	// Something is wrong with the sql statement, check to make sure accounts table exists with all 3 fields.
 	// echo 'Could not prepare statement!';
 }
-	}
+header('Location:../phpLogin/login.php');
+}
 	$stmt->close();
 } else {
 	// Something is wrong with the sql statement, check to make sure accounts table exists with all 3 fields.
