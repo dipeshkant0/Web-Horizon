@@ -59,7 +59,7 @@ if ($stmt = $con->prepare('SELECT id, password FROM accounts WHERE username = ?'
 // echo 'Please check your email to activate your account!';
 // } else {
 	// Something is wrong with the sql statement, check to make sure accounts table exists with all 3 fields.
-	echo 'Could not prepare statement!';
+	// echo 'Could not prepare statement!';
 }
 	}
 	$stmt->close();
